@@ -17,13 +17,20 @@ interface Product {
   slug: string; // <--- WAJIB ADA (URL)
   description: string;
   process: string;
-  fullDescription: string;
+  fullDescription?: string; // Opsional
   roastLevel: string;
   image: string;
   isAvailable: boolean;
   variants: Variant[];
+  
+  // Update: Tambahkan field opsional ini biar Vercel gak error
   region?: string;
   altitude?: string;
+  variety?: string[];
+  grade?: string;
+  brewingTemp?: string;
+  brewingMethods?: string[];
+  tastingNotes?: string[];
 }
 
 interface ProductCardProps {
@@ -124,10 +131,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                </span>
             </div>
             
-            {/* Tombol Keranjang (WA)
-              Kita pakai <object> supaya link ini terpisah dari link utama kartu.
-              Jadi kalau klik tombol ini, lari ke WA. Kalau klik kartu, lari ke Detail.
-            */}
+            {/* Tombol Keranjang (WA) */}
             <object> 
                 <a 
                     href={waLink} 
