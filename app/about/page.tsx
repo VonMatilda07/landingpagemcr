@@ -7,6 +7,8 @@ import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 
+export const revalidate = 60; 
+
 // Interface Data About (Founder dll)
 interface AboutData {
   mainTitle: string;
@@ -154,7 +156,7 @@ export default async function AboutPage() {
       <section className="py-20 border-t border-white/10 bg-black/20 text-center">
         <h2 className="text-3xl font-serif font-bold text-white mb-6">Siap Menulis Cerita Bersama?</h2>
         <a 
-          href="https://wa.me/6281234567890" 
+          href="https://wa.me/6281255671334" 
           target="_blank"
           className="inline-block px-8 py-4 bg-gold-500 hover:bg-gold-600 text-coffee-950 font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(217,119,6,0.3)]"
         >

@@ -55,7 +55,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
     : 0;
 
   // Link WhatsApp Pintas (Tombol Keranjang)
-  const waNumber = "6281234567890"; 
+  const waNumber = "6281255671334"; 
   const message = `Halo Mahakam Roastery, saya tertarik dengan kopi *${product.name}*. Boleh minta info detail?`;
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 

@@ -149,7 +149,7 @@ export default async function ProductDetail({ params }: PageProps) {
             </div>
 
             <a 
-              href={`https://wa.me/6281234567890?text=Halo%20Mahakam,%20saya%20mau%20pesan%20beans%20*${product.name}*.%20Boleh%20minta%20info?`}
+              href={`https://wa.me/6281255671334?text=Halo%20Mahakam,%20saya%20mau%20pesan%20beans%20*${product.name}*.%20Boleh%20minta%20info?`}
               target="_blank"
               className="block w-full py-4 bg-gold-500 hover:bg-gold-600 text-coffee-950 font-bold text-center rounded-xl transition-all shadow-[0_0_20px_rgba(217,119,6,0.3)] hover:shadow-[0_0_30px_rgba(217,119,6,0.5)] text-lg"
             >
