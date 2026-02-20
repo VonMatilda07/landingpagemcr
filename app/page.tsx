@@ -99,35 +99,32 @@ export default async function Home() {
           <div className="w-24 h-1 bg-gold-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {products.length > 0 ? (
             products.map((coffee: SanityProduct, index: number) => (
-              
-              <div key={coffee._id} className="min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center shrink-0">
-                <ProductCard 
-                  index={index}
-                  product={{
-                    id: coffee._id,
-                    name: coffee.name,
-                    slug: coffee.slug,
-                    description: coffee.description,
-                    fullDescription: coffee.fullDescription,
-                    variants: coffee.variants || [],
-                    region: coffee.region || 'Indonesia',
-                    altitude: coffee.altitude || 'Highland',
-                    variety: coffee.variety || [],
-                    grade: coffee.grade || '-',
-                    brewingTemp: coffee.brewingTemp || '90°C',
-                    brewingMethods: coffee.brewingMethods || [],
-                    process: coffee.process,
-                    roastLevel: coffee.roastLevel as any,
-                    tastingNotes: coffee.tastingNotes || [],
-                    image: coffee.image ? urlForImage(coffee.image).url() : '/images/placeholder.jpg',
-                    isAvailable: coffee.isAvailable
-                  }} 
-                />
-              </div>
-
+              <ProductCard
+                key={coffee._id}
+                index={index}
+                product={{
+                  id: coffee._id,
+                  name: coffee.name,
+                  slug: coffee.slug,
+                  description: coffee.description,
+                  fullDescription: coffee.fullDescription,
+                  variants: coffee.variants || [],
+                  region: coffee.region || 'Indonesia',
+                  altitude: coffee.altitude || 'Highland',
+                  variety: coffee.variety || [],
+                  grade: coffee.grade || '-',
+                  brewingTemp: coffee.brewingTemp || '90°C',
+                  brewingMethods: coffee.brewingMethods || [],
+                  process: coffee.process,
+                  roastLevel: coffee.roastLevel as any,
+                  tastingNotes: coffee.tastingNotes || [],
+                  image: coffee.image ? urlForImage(coffee.image).url() : '/images/placeholder.jpg',
+                  isAvailable: coffee.isAvailable
+                }}
+              />
             ))
           ) : (
             <p className="text-center text-gray-500 col-span-4 w-full">

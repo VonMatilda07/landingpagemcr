@@ -55,7 +55,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
     : 0;
 
   // Link WhatsApp Pintas (Tombol Keranjang)
-  const waNumber = "6281255671334"; 
+  const waNumber = "6281255671334"; // Ganti dengan nomor WhatsApp yang valid
   const message = `Halo Mahakam Roastery, saya tertarik dengan kopi *${product.name}*. Boleh minta info detail?`;
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
@@ -76,13 +76,13 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       >
         
         {/* --- BAGIAN GAMBAR --- */}
-        <div className="relative h-64 p-3 bg-coffee-900/30">
+        <div className="relative h-72 md:h-64 p-3 bg-coffee-900/30">
            <div className="relative h-full w-full rounded-lg overflow-hidden border border-white/5 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:border-gold-500/30 transition-all duration-500">
              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-500 z-10 mix-blend-overlay"></div>
              <img 
                src={product.image} 
                alt={product.name}
-               className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 ease-out brightness-90 group-hover:brightness-105"
+               className="w-full h-full object-contain md:object-cover object-top md:object-center transform group-hover:scale-110 transition duration-700 ease-out brightness-90 group-hover:brightness-105"
              />
            </div>
            
