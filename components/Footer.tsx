@@ -16,8 +16,8 @@ export default function Footer() {
             Menghadirkan profil roasting terbaik untuk pengalaman seduh yang autentik.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="text-coffee-700 hover:text-gold-500 transition"><Instagram size={20} /></a>
-            <a href="#" className="text-coffee-700 hover:text-gold-500 transition"><MessageCircle size={20} /></a>
+            <a href="https://www.instagram.com/mahakam.coffeeroastery/" className="text-coffee-700 hover:text-gold-500 transition"><Instagram size={20} /></a>
+            <a href="https://wa.me/6281255671334" className="text-coffee-700 hover:text-gold-500 transition"><MessageCircle size={20} /></a>
           </div>
         </div>
 
