@@ -11,11 +11,11 @@ import { urlForImage } from "@/sanity/lib/image";
 
 export const revalidate = 60;
 
-// Interface Product (Update: Tambah Slug)
+// Interface Product
 interface SanityProduct {
   _id: string;
   name: string;
-  slug: string; // <--- FIELD PENTING (URL)
+  slug: string;
   variants: {
     weight: string;
     price: number;
@@ -44,12 +44,12 @@ interface GalleryItem {
   description: string;
 }
 
-// Query Data (Update: Ambil Slug dari Sanity)
+// Query Data
 async function getData() {
   const products = await client.fetch(groq`*[_type == "product"] {
     _id,
     name,
-    "slug": slug.current, // <--- AMBIL SLUG DI SINI
+    "slug": slug.current,
     variants,
     region,
     altitude,
@@ -83,18 +83,14 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-coffee-950 text-coffee-100 font-sans selection:bg-gold-500 selection:text-coffee-950">
       
-      {/* Navbar */}
       <Navbar />
-
       <Hero />
       
-      {/* Gallery Section */}
       <section id="gallery">
         <GallerySection items={gallery} />
       </section>
 
-      {/* Product Section */}
-      <section id="products" className="py-24 px-6 md:px-12 max-w-7xl mx-auto border-b border-coffee-900">
+      <section id="products" className="py-24 px-6 md:px-12 max-w-7xl mx-auto border-b border-coffee-900 overflow-hidden">
         <div className="text-center mb-16">
           <span className="text-gold-500 text-sm font-bold tracking-[0.2em] uppercase mb-2 block">Our Collection</span>
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
@@ -103,42 +99,44 @@ export default async function Home() {
           <div className="w-24 h-1 bg-gold-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {products.length > 0 ? (
             products.map((coffee: SanityProduct, index: number) => (
-              <ProductCard 
-                key={coffee._id} 
-                index={index}
-                product={{
-                  id: coffee._id,
-                  name: coffee.name,
-                  slug: coffee.slug, // <--- KIRIM SLUG KE KARTU
-                  description: coffee.description,
-                  fullDescription: coffee.fullDescription,
-                  variants: coffee.variants || [],
-                  region: coffee.region || 'Indonesia',
-                  altitude: coffee.altitude || 'Highland',
-                  variety: coffee.variety || [],
-                  grade: coffee.grade || '-',
-                  brewingTemp: coffee.brewingTemp || '90°C',
-                  brewingMethods: coffee.brewingMethods || [],
-                  process: coffee.process,
-                  roastLevel: coffee.roastLevel as any,
-                  tastingNotes: coffee.tastingNotes || [],
-                  image: coffee.image ? urlForImage(coffee.image).url() : '/images/placeholder.jpg',
-                  isAvailable: coffee.isAvailable
-                }} 
-              />
+              
+              <div key={coffee._id} className="min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center shrink-0">
+                <ProductCard 
+                  index={index}
+                  product={{
+                    id: coffee._id,
+                    name: coffee.name,
+                    slug: coffee.slug,
+                    description: coffee.description,
+                    fullDescription: coffee.fullDescription,
+                    variants: coffee.variants || [],
+                    region: coffee.region || 'Indonesia',
+                    altitude: coffee.altitude || 'Highland',
+                    variety: coffee.variety || [],
+                    grade: coffee.grade || '-',
+                    brewingTemp: coffee.brewingTemp || '90°C',
+                    brewingMethods: coffee.brewingMethods || [],
+                    process: coffee.process,
+                    roastLevel: coffee.roastLevel as any,
+                    tastingNotes: coffee.tastingNotes || [],
+                    image: coffee.image ? urlForImage(coffee.image).url() : '/images/placeholder.jpg',
+                    isAvailable: coffee.isAvailable
+                  }} 
+                />
+              </div>
+
             ))
           ) : (
-            <p className="text-center text-gray-500 col-span-4">
+            <p className="text-center text-gray-500 col-span-4 w-full">
               Belum ada produk. Silakan input data di <a href="/studio" className="text-gold-500 underline">Studio Admin</a>.
             </p>
           )}
         </div>
       </section>
 
-      {/* About Section (Home) */}
       <section id="about">
         <AboutSection />
       </section>
