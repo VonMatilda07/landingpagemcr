@@ -1,19 +1,19 @@
+// app/product/[slug]/page.tsx
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
-import { ArrowLeft, Thermometer, Mountain, Leaf, Droplets, Award, Scale } from "lucide-react";
+// Tambahan Icon Leaf buat Varietas
+import { ArrowLeft, Thermometer, Mountain, Droplets, Award, Scale, Leaf } from "lucide-react"; 
 import Link from "next/link";
 
-export const revalidate = 60;
+export const revalidate = 60; // Biar auto-refresh kalau ada update di Sanity
 
-// 1. Definisikan Tipe Props untuk Next.js 15
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-// 2. Query Data dengan Parameter Slug yang Benar
 async function getProduct(slug: string) {
   return client.fetch(groq`*[_type == "product" && slug.current == $slug][0] {
     _id,
@@ -26,25 +26,24 @@ async function getProduct(slug: string) {
     process,
     roastLevel,
     grade,
+    variety,          // <--- INI YANG HILANG KEMARIN
+    brewingMethods,   // <--- INI JUGA HILANG
     tastingNotes,
     variants,
     image,
     brewingTemp
-  }`, { slug }); // <--- Pastikan object { slug } ini ada!
+  }`, { slug });
 }
 
 export default async function ProductDetail({ params }: PageProps) {
-  // 3. WAJIB: Await params dulu (Khusus Next.js 15 ke atas)
   const { slug } = await params; 
-  
-  // Baru panggil data
   const product = await getProduct(slug);
 
   if (!product) {
     return (
       <div className="min-h-screen bg-coffee-950 flex flex-col items-center justify-center text-white gap-4">
         <p className="text-xl font-serif">Produk tidak ditemukan atau URL salah.</p>
-        <Link href="/" className="text-gold-500 hover:underline">Kembali ke Home</Link>
+        <Link href="/#products" className="text-gold-500 hover:underline">Kembali ke Katalog</Link>
       </div>
     );
   }
@@ -102,6 +101,7 @@ export default async function ProductDetail({ params }: PageProps) {
               {product.fullDescription && <p className="text-sm mt-4 text-gray-400 not-italic">{product.fullDescription}</p>}
             </div>
 
+            {/* GRID TECHNICAL SPECS (Sudah ditambah Variety) */}
             <div className="bg-white/5 rounded-2xl p-8 border border-white/10 mb-10">
                 <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6 border-b border-white/10 pb-4">Technical Specs</h4>
                 <div className="grid grid-cols-2 gap-y-8 gap-x-4">
@@ -109,8 +109,29 @@ export default async function ProductDetail({ params }: PageProps) {
                     <SpecItem icon={Droplets} label="Process" value={product.process} />
                     <SpecItem icon={Award} label="Grade" value={product.grade || "Specialty Grade"} />
                     <SpecItem icon={Thermometer} label="Brew Temp" value={product.brewingTemp || "90°C - 93°C"} />
+                    
+                    {/* INI DIA VARIETASNYA! */}
+                    <SpecItem 
+                      icon={Leaf} 
+                      label="Variety" 
+                      value={product.variety && product.variety.length > 0 ? product.variety.join(', ') : '-'} 
+                    />
                 </div>
             </div>
+
+            {/* INI DIA METODE SEDUHNYA (Recommended Brew) */}
+            {product.brewingMethods && product.brewingMethods.length > 0 && (
+              <div className="mb-10">
+                <h4 className="text-gray-400 font-bold uppercase tracking-widest text-xs mb-3">Recommended Brew</h4>
+                <div className="flex flex-wrap gap-2">
+                  {product.brewingMethods.map((method: string, idx: number) => (
+                    <span key={idx} className="px-4 py-2 bg-black/30 border border-white/10 text-gray-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-inner">
+                      {method}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="space-y-4 mb-10">
                 <h4 className="text-gray-400 font-bold uppercase tracking-widest text-xs mb-2">Pilihan Kemasan (B2B/Retail)</h4>
