@@ -9,6 +9,8 @@ import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/sanity/lib/image";
 
+export const revalidate = 60;
+
 // Interface Product (Update: Tambah Slug)
 interface SanityProduct {
   _id: string;

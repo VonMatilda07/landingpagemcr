@@ -6,6 +6,8 @@ import { urlForImage } from "@/sanity/lib/image";
 import { ArrowLeft, Thermometer, Mountain, Leaf, Droplets, Award, Scale } from "lucide-react";
 import Link from "next/link";
 
+export const revalidate = 60;
+
 // 1. Definisikan Tipe Props untuk Next.js 15
 interface PageProps {
   params: Promise<{ slug: string }>;
