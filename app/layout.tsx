@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   description:
     "Menghadirkan profil roasting presisi dari jantung Kalimantan Timur. We roast, you brew.",
   icons: {
-    icon: "/logo.svg",
-    shortcut: "/logo.svg",
-    apple: "/logo.svg",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
